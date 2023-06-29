@@ -1,0 +1,12 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'myproject.java-conventions'
+}
+
+def readmeCheck = tasks.register('readmeCheck', vez.ReadmeVerificationTask) {
+    // Expect the README in the project directory
+    readme = layout.projectDirectory.file("README.md")
+    // README must contain a Service API header
+    readmePatterns = ['## API', '## Changelog']
+}

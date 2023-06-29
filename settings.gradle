@@ -1,0 +1,6 @@
+rootProject.name = 'encoder'
+include 'internal'
+include 'shared'
+include 'api'
+include 'server'
+
