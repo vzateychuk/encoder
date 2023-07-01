@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'application'
     id 'org.springframework.boot' version '3.1.1'
     id 'io.spring.dependency-management' version '1.1.0'
 
@@ -20,7 +21,7 @@ repositories {
 }
 
 dependencies {
-    implementation project(':shared')
+    implementation project(':internal')
     implementation project(':api')
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -29,6 +30,23 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-tasks.named('test') {
+application {
+    mainClass.set("vez.encoder.EncoderApplication")
+    applicationDefaultJvmArgs = ['--enable-preview']
+}
+
+// We have the tasks compileJava and compileTestJava that need to have the --enable-preview compiler arguments.
+tasks.withType(JavaCompile).each {
+    it.options.compilerArgs.add('--enable-preview')
+
+    // Optionally we can show which preview feature we use.
+    // it.options.compilerArgs.add("-Xlint:preview")
+}
+
+tasks.withType(Test).configureEach {
+    jvmArgs += "--enable-preview"
+}
+
+test {
     useJUnitPlatform()
 }
