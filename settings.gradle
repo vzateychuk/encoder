@@ -1,5 +1,5 @@
-rootProject.name = 'encoder'
+rootProject.name = 'signer'
 include 'internal'
 include 'api'
-include 'encode-srv'
+include 'signer-srv'
 
