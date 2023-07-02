@@ -1,0 +1,55 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.springframework.boot' version '3.1.1'
+    id 'io.spring.dependency-management' version '1.1.0'
+
+    id 'myproject.java-conventions'
+}
+
+group = 'vez'
+version = '0.0.1-SNAPSHOT'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':internal')
+    implementation project(':api')
+
+    // Swagger UI (OpenAPI tools)
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.1.0'
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+application {
+    mainClass.set("vez.signer.SignerApplication")
+    applicationDefaultJvmArgs = ['--enable-preview']
+}
+
+// We have the tasks compileJava and compileTestJava that need to have the --enable-preview compiler arguments.
+tasks.withType(JavaCompile).each {
+    it.options.compilerArgs.add('--enable-preview')
+
+    // Optionally we can show which preview feature we use.
+    // it.options.compilerArgs.add("-Xlint:preview")
+}
+
+tasks.withType(Test).configureEach {
+    jvmArgs += "--enable-preview"
+}
+
+test {
+    useJUnitPlatform()
+}
