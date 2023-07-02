@@ -16,7 +16,12 @@ public class HealthCheckController {
      * A central interface that provides configuration for this
      * microservice and is read-only while the application is running,
      */
-    @Autowired ApplicationContext applicationContext;
+    final ApplicationContext applicationContext;
+
+    @Autowired
+    public HealthCheckController(ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
+    }
 
     /**
      * A request for testing Eureka connection. Indicate the request succeeded and return the application state.
