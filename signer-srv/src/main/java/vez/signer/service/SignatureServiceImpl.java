@@ -64,7 +64,7 @@ public class SignatureServiceImpl implements SignatureService {
             throws InvalidKeyException, NoSuchAlgorithmException, SignatureException {
 
         // To encrypt a message, we need an algorithm and a private key.
-        PrivateKey privateKey = certificateService.loadPrivateKey();
+        PrivateKey privateKey = certificateService.getPrivateKey();
 
         Signature signature = Signature.getInstance(SHA_384_WITH_RSA);
         signature.initSign(privateKey);
@@ -77,7 +77,7 @@ public class SignatureServiceImpl implements SignatureService {
     private boolean verify(String message, byte[] digitalSignature)
             throws NoSuchAlgorithmException, InvalidKeyException, SignatureException {
         //
-        PublicKey publicKey = certificateService.loadPublicKey();
+        PublicKey publicKey = certificateService.getPublicKey();
         byte[] messageBytes = message.getBytes(StandardCharsets.UTF_8);
 
         Signature signature = Signature.getInstance(SHA_384_WITH_RSA);

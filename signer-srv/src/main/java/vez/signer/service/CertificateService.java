@@ -4,7 +4,7 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 
 public interface CertificateService {
-    PrivateKey loadPrivateKey();
+    PrivateKey getPrivateKey();
 
-    PublicKey loadPublicKey();
+    PublicKey getPublicKey();
 }

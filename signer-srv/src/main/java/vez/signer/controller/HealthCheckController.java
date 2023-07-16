@@ -1,5 +1,6 @@
 package vez.signer.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.ResponseEntity;
@@ -28,10 +29,10 @@ public class HealthCheckController {
      *
      * @return The application name.
      */
+    @Operation(summary = "Get liveness probe")
     @GetMapping({"/", "/actuator/info"})
     ResponseEntity<String> info() {
-        return ResponseEntity.ok(applicationContext.getId()
-                + " is alive and running on " + Thread.currentThread() + "\n"
+        return ResponseEntity.ok(applicationContext.getId()  + " is alive and running"
         );
     }
 

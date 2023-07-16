@@ -15,7 +15,7 @@ public class AppConfig {
 
     @Bean
     public ExecutorService getExecutorInstance() {
-        return Executors.newVirtualThreadPerTaskExecutor();
+        return Executors.newFixedThreadPool(10);
     }
 
     /**
@@ -33,9 +33,7 @@ public class AppConfig {
      */
     @Bean
     public TomcatProtocolHandlerCustomizer<?> protocolHandlerVirtualThreadExecutorCustomizer() {
-        return protocolHandler -> {
-            protocolHandler.setExecutor(getExecutorInstance());
-        };
+        return protocolHandler -> protocolHandler.setExecutor(getExecutorInstance());
     }
 
 }
