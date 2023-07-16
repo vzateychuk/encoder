@@ -1,5 +1,3 @@
 rootProject.name = 'signer'
-include 'internal'
-include 'api'
 include 'signer-srv'
 
